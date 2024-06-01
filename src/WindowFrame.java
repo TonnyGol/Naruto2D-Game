@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WindowFrame extends JFrame {
-    public static final int DEFAULT_POSITION = 0;
     public static boolean switchPanels;
     public static int panelChoice;
 
     private final int WIDTH = 1920;
     private final int HEIGHT = 1080;
+    public static final String IMAGES_FOLDER_PATH = "Images\\";
 
-    private GamePanel gamePanel;
-    private MenuPanel menu;
+    private final MenuPanel menu;
+    private final GamePanel gamePanel;
     private InstructionsPanel instructionsPanel;
     private SettingsPanel settingsPanel;
     private PausePanel pausePanel;
@@ -23,8 +23,9 @@ public class WindowFrame extends JFrame {
         this.setSize(WIDTH, HEIGHT);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+
         switchPanels = false;
-        this.panels = new ArrayList<>();
+        this.panels = new ArrayList<>(5);
 
         this.menu = new MenuPanel(WIDTH, HEIGHT);
         this.add(this.menu);
@@ -61,7 +62,7 @@ public class WindowFrame extends JFrame {
 
     public static JLabel createPhotoLabel(String text, String fileName, int fontSize) {
         JLabel label = new JLabel(text);
-        label.setIcon(new ImageIcon("Images\\"+fileName)); // Set the icon for the label
+        label.setIcon(new ImageIcon(IMAGES_FOLDER_PATH+fileName)); // Set the icon for the label
         label.setHorizontalTextPosition(JLabel.CENTER);
         label.setVerticalTextPosition(JLabel.CENTER);
         label.setFont(new Font(label.getFont().getName(), Font.PLAIN, fontSize));

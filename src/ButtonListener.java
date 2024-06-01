@@ -27,7 +27,7 @@ public class ButtonListener implements MouseListener {
             if (labelText.equals(MenuPanel.QUIT_COMMAND)){
                 System.exit(0);
             }
-            System.out.println(labelText + " label pressed");
+            System.out.println(labelText + " Button pressed");
         }
     }
 
