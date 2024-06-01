@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,9 @@ public class WindowFrame extends JFrame {
 
     private final int WIDTH = 1920;
     private final int HEIGHT = 1080;
-    public static final String IMAGES_FOLDER_PATH = "Images\\";
+    public static final String IMAGES_FOLDER_PATH = "resources\\Images\\";
+
+    private MusicPlayer musicPlayer;
 
     private final MenuPanel menu;
     private final GamePanel gamePanel;
@@ -23,6 +27,10 @@ public class WindowFrame extends JFrame {
         this.setSize(WIDTH, HEIGHT);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.musicPlayer = new MusicPlayer();
+        this.musicPlayer.setVolume(0.2f);
+        //this.musicPlayer.start();
+
 
         switchPanels = false;
         this.panels = new ArrayList<>(5);
@@ -36,6 +44,10 @@ public class WindowFrame extends JFrame {
         this.panels.add(this.gamePanel);
 
         this.mainWindowLoop();
+        // Add a shutdown hook to stop the music when the application closes.
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            musicPlayer.stopMusic();
+        }));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -56,6 +68,7 @@ public class WindowFrame extends JFrame {
                 if (WindowFrame.switchPanels){
                     this.showOnlyOnePanel();
                 }
+
             }
         }).start();
     }

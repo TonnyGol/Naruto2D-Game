@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,16 +17,21 @@ public class GameMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        int mouseCode = mouseEvent.getButton();
-        if (mouseCode == MouseEvent.BUTTON1){
+        if (SwingUtilities.isLeftMouseButton(mouseEvent)){
             this.game.setCharacterMoving(false);
             this.game.setCharacterAttacking(true);
+        }
+        if (SwingUtilities.isRightMouseButton(mouseEvent)){
+            this.game.setCharacterMoving(false);
+            this.game.setCharacterAttacking(true);
+            this.game.setCharacterStrongAttacking(true);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         this.game.setCharacterAttacking(false);
+        this.game.setCharacterStrongAttacking(false);
         this.character.setAttackFrame(0);
         main.sleep(100);
     }

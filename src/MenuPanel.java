@@ -9,7 +9,7 @@ public class MenuPanel extends JPanel {
 
     private final int BUTTON_MARGIN = 60;
     private final int BUTTON_FONT_SIZE = 30;
-    private final String IMAGES_FOLDER_PATH = "Images\\";
+    private final String IMAGES_FOLDER_PATH = "resources\\Images\\";
     private final String BUTTON_BG_FILE_NAME = "Button_BG.png";
     private final String MENU_BG_FILE_NAME = "Menu_BG.png";
 

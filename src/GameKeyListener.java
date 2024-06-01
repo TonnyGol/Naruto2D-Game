@@ -44,7 +44,11 @@ public class GameKeyListener implements KeyListener {
             case KeyEvent.VK_SPACE:
                 this.game.setCharacterMoving(false);
                 this.game.setCharacterJumping(true);
-                this.character.setDx(150);
+                if (this.game.isCharacterMovingBack()){
+                    this.character.setDx(-150);
+                }else {
+                    this.character.setDx(150);
+                }
                 break;
             case KeyEvent.VK_ESCAPE:
                 WindowFrame.panelChoice = 0;

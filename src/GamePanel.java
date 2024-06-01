@@ -3,12 +3,13 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
 
-    private final String IMAGES_FOLDER = "Images\\";
+    private final String IMAGES_FOLDER = "resources\\Images\\";
     private final String GAME_BG_FILE_NAME = "Game_BG.png";
 
     private boolean isCharacterMoving;
     private boolean isCharacterMovingBack;
     private boolean isCharacterAttacking;
+    private boolean isCharacterStrongAttacking;
     private boolean isCharacterJumping;
 
     private int width;
@@ -23,6 +24,7 @@ public class GamePanel extends JPanel {
         this.isCharacterMovingBack = false;
         this.isCharacterAttacking = false;
         this.isCharacterJumping = false;
+        this.isCharacterStrongAttacking = false;
         this.setBounds(0, 0, this.width, this.height);
 
         this.character = new Character(5, 600);
@@ -37,8 +39,12 @@ public class GamePanel extends JPanel {
     private void characterJump(Graphics g){
         if (this.character.canMove()){
             this.character.move();
-            this.character.paintJump(g);
-            main.sleep(150);
+            if (this.isCharacterMovingBack){
+                this.character.paintJumpBack(g);
+            }else {
+                this.character.paintJump(g);
+            }
+            main.sleep(100);
             this.loopCharacterFrames();
         }else {
             this.character.paint(g);
@@ -59,7 +65,11 @@ public class GamePanel extends JPanel {
         }
     }
     private void characterAttack(Graphics g){
-        this.character.paintAttack(g);
+        if (this.isCharacterStrongAttacking){
+            this.character.paintStrongAttack(g);
+        }else {
+            this.character.paintAttack(g);
+        }
         main.sleep(100);
         this.loopCharacterFrames();
     }
@@ -72,12 +82,12 @@ public class GamePanel extends JPanel {
             }
         } else if (this.isCharacterAttacking) {
             this.character.setAttackFrame(this.character.getAttackFrame() + 1);
-            if (this.character.getAttackFrame() % 6 == 0){
+            if (this.character.getAttackFrame() % 5 == 0){
                 this.character.setAttackFrame(0);
             }
         } else if (this.isCharacterJumping) {
             this.character.setJumpFrame(this.character.getJumpFrame() + 1);
-            if (this.character.getJumpFrame() == 2){
+            if (this.character.getJumpFrame() % 3 == 0){
                 this.character.setJumpFrame(0);
             }
         }
@@ -111,15 +121,15 @@ public class GamePanel extends JPanel {
     public boolean isCharacterMoving() {
         return isCharacterMoving;
     }
-
     public boolean isCharacterAttacking() {
         return isCharacterAttacking;
     }
-
+    public boolean isCharacterStrongAttacking() {
+        return isCharacterStrongAttacking;
+    }
     public boolean isCharacterMovingBack() {
         return isCharacterMovingBack;
     }
-
     public boolean isCharacterJumping() {
         return isCharacterJumping;
     }
@@ -127,15 +137,15 @@ public class GamePanel extends JPanel {
     public void setCharacterMoving(boolean characterMoving) {
         this.isCharacterMoving = characterMoving;
     }
-
     public void setCharacterMovingBack(boolean characterMovingBack) {
         this.isCharacterMovingBack = characterMovingBack;
     }
-
     public void setCharacterAttacking(boolean characterAttacking) {
         this.isCharacterAttacking = characterAttacking;
     }
-
+    public void setCharacterStrongAttacking(boolean characterStrongAttacking) {
+        isCharacterStrongAttacking = characterStrongAttacking;
+    }
     public void setCharacterJumping(boolean characterJumping) {
         isCharacterJumping = characterJumping;
     }
